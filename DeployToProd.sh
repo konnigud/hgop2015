@@ -17,6 +17,6 @@ contID=$(docker ps -q)
 
 docker pull konnigud/tictactoe
 
-docker run -p 9080:9080 -d -e "NODE_ENV=production" konnigud/tictactoe
+docker run -p 9001:9001 -d -e "NODE_ENV=production" konnigud/tictactoe
 
 ENDSSH
