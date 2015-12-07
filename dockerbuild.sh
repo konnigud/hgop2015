@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo Settings
-echo Path is: $PATH
-echo System user is: $USER
+#echo Path is: $PATH
+#echo System user is: $USER
 
 echo Cleaning...
 rm -rf ./dist
@@ -11,6 +11,7 @@ echo Setting evironment
 npm install
 bower install
 echo Building app
+export DISPLAY:=0
 grunt
 
 gruntStatus=$?
