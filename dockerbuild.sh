@@ -11,7 +11,7 @@ echo Setting evironment
 npm install
 bower install
 echo Building app
-export DISPLAY:=0
+export DISPLAY=:0
 grunt
 
 gruntStatus=$?
