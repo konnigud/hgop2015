@@ -75,8 +75,13 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: true,
-    reporters:["dots","junit"],
-    junitReporter:{outputFile:"test-results.xml"}
+    singleRun: false,
+    reporters: ['progress','junit'],
+    junitReporter: {
+      outputDir: '',
+      outputFile: 'test-results.xml',
+      suite: '',
+      useBrowserName: false
+    }
   });
 };
