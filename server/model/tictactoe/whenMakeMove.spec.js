@@ -201,6 +201,39 @@ describe('Make move when not his turn',function(){
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
+  it('Player two makes first move, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,2]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_NotYourTurn",
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[]
+      },
+    }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
 
 });
 
