@@ -376,7 +376,7 @@ describe('Illegal moves',function(){
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
-  it('Move is out of bounds Y-axis-to small, should not work',function(){
+  it('Move already played, should not work',function(){
     given=[{
       playerOne: "Gulli",
       playerTwo: "Halli",
@@ -412,4 +412,187 @@ describe('Illegal moves',function(){
   });
 
 });
+
+describe('Winning Moves',function(){
+  var given, when, then ;
+
+  it('Winning scenario X X X' +
+                      '- - -' +
+                      '- - -',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0],[2,0],[0,1],[2,1]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,2]
+    };
+    then=[{
+      id:"1239",
+      event:"Winner",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0],[2,0],[0,1],[2,1],[0,2]]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+/*
+  it('Move is out of bounds X-axis-to small, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[-1,2]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_OutOfBounds",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+  it('Move is out of bounds Y-axis-to large, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,3]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_OutOfBounds",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+  it('Move is out of bounds Y-axis-to small, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,-1]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_OutOfBounds",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[]
+      },
+    }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+  it('Move already played, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,0]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_MoveAlreadyPlayed",
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0]]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+*/
+});
+
+
+
 
