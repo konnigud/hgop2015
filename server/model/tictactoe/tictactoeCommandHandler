@@ -102,9 +102,11 @@ module.exports = function tictactoeCommandHandler(events){
 
             if(myGame.moves.length > 4){
               var x = [0,0,0];
+              var y = [0,0,0];
               for(var i = 0;i<myGame.moves.length;i+=2){
                 x[myGame.moves[i][0]]++;
-                if(x[myGame.moves[i][0]] === 3){
+                y[myGame.moves[i][1]]++;
+                if(x[myGame.moves[i][0]] === 3 || y[myGame.moves[i][1]] === 3){
                   event = "Winner";
                   break;
                 }
