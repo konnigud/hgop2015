@@ -97,7 +97,6 @@ describe('should reject joining of a non_existing game', function(){
             timeStamp: "2015.12.02T11:30:55",
         }];
 
-
         var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
 
         JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));

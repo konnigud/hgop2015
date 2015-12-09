@@ -3,6 +3,8 @@ var should = require('should');
 module.exports = function tictactoeCommandHandler(events){
     var gameCreatedEvent = events;
 
+
+
     var handlers = {
         "CreateGame":function(cmd){
             var newGame={
@@ -22,15 +24,13 @@ module.exports = function tictactoeCommandHandler(events){
             }];
         },
         "JoinGame":function(cmd){
-            if(gameCreatedEvent===undefined || gameCreatedEvent.length <= 0){
-                return [{
-                    id:cmd.id,
-                    event:"GameDoesNotExist",
-                    userName: cmd.userName,
-                    timeStamp: cmd.timeStamp
-                }];
+            var game;
+            try {
+                game = getGame(cmd);
             }
-            var game = gameCreatedEvent[cmd.gameId-1];
+            catch(err){
+                return err;
+            }
             if(game.playerTwo===undefined) {
                 game.playerTwo = cmd.userName;
                 return [{
@@ -47,8 +47,33 @@ module.exports = function tictactoeCommandHandler(events){
                 userName:cmd.userName,
                 timeStamp:cmd.timeStamp
             }];
+        },
+        "MakeMove":function(cmd){
+            var game;
+            try {
+                game = getGame(cmd);
+            }
+            catch(err){
+                return err;
+            }
+
+            return [{}];
         }
     };
+
+    var getGame = function(cmd){
+        if(gameCreatedEvent===undefined || gameCreatedEvent.length <= 0){
+            throw [{
+                id:cmd.id,
+                event:"GameDoesNotExist",
+                userName: cmd.userName,
+                timeStamp: cmd.timeStamp
+            }];
+        }
+        else {
+            return gameCreatedEvent[cmd.gameId-1];
+        }
+    }
 
     return {
         executeCommand:function(cmd){
