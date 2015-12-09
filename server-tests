@@ -3,13 +3,65 @@
 [0m  create game command[0m
 [2K[0G  [32m  ✓[0m[90m should create game [0m
 [2K[0G  [32m  ✓[0m[90m should create game with another user another time [0m
+[2K[0G  [32m  ✓[0m[90m Adding a new game when games already exists [0m
 
 [0m  join game command[0m
+{ gameId: 1,
+  name: 'TheFirstGame',
+  playerOne: 'Gulli',
+  playerTwo: 'Halli',
+  createTimeStamp: '2015.12.02T11:29:44',
+  moves: [] }
 [2K[0G  [32m  ✓[0m[90m should join game [0m
+{ gameId: 1,
+  name: 'TheFirstGame',
+  playerOne: 'Gulli',
+  playerTwo: 'Halli',
+  createTimeStamp: '2015.12.02T11:24:44',
+  moves: [] }
+[2K[0G  [32m  ✓[0m[90m should join the right game when there are more then one game [0m
 
 [0m  should reject joining of a non_existing game[0m
-[2K[0G  [32m  ✓[0m[90m should join game [0m
+[2K[0G  [32m  ✓[0m[90m should not join the game [0m
+
+[0m  should reject joining of a full game[0m
+[2K[0G  [32m  ✓[0m[90m should not join game [0m
+
+[0m  Make move when no game exists[0m
+[2K[0G  [32m  ✓[0m[90m should not make move [0m
+
+[0m  Make move on a non existant game[0m
+[2K[0G  [32m  ✓[0m[90m should not make move [0m
+
+[0m  Make move[0m
+[2K[0G  [32m  ✓[0m[90m Player one makes first move [0m
+[2K[0G  [32m  ✓[0m[90m Player two makes second move [0m
+
+[0m  Make move when not his turn[0m
+[2K[0G  [32m  ✓[0m[90m Player one makes 2 moves in a row, should not work [0m
+[2K[0G  [32m  ✓[0m[90m Player two makes 2 consecutive moves, should not work [0m
+[2K[0G  [32m  ✓[0m[90m Player two makes first move, should not work [0m
+
+[0m  Illegal moves[0m
+[2K[0G  [32m  ✓[0m[90m Move is out of bounds X-axis-to large, should not work [0m
+[2K[0G  [32m  ✓[0m[90m Move is out of bounds X-axis-to small, should not work [0m
+[2K[0G  [32m  ✓[0m[90m Move is out of bounds Y-axis-to large, should not work [0m
+[2K[0G  [32m  ✓[0m[90m Move is out of bounds Y-axis-to small, should not work [0m
+[2K[0G  [32m  ✓[0m[90m Move already played, should not work [0m
+
+[0m  End of game scenarios[0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario X X X- - -- - - [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario - - -X X X- - - [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario - - -- - -X X X [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario X - -X - -X - - [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario - X -- X -- X - [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario - - X- - X- - X [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario X - -  - X -  - - X [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario - - X  - X -  X - - [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario O - -  - O -  - - O [0m
+[2K[0G  [32m  ✓[0m[90m Winning scenario - O -  - O -  - O - [0m
+[2K[0G  [32m  ✓[0m[90m Draw scenario [0m
 
 
-[92m [0m[32m 4 passing[0m[90m (5ms)[0m
+[92m [0m[32m 30 passing[0m[90m (28ms)[0m
 
