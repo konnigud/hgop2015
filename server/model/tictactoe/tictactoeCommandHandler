@@ -5,6 +5,12 @@ module.exports = function tictactoeCommandHandler(events){
 
     var handlers = {
         "CreateGame":function(cmd){
+            var newGame={
+                id:cmd.id,
+                playerOne:cmd.userName,
+                createTimeStamp:cmd.timeStamp,
+                name:cmd.name,
+            };
             gameCreatedEvent.push(cmd);
             return [{
                 id: cmd.id,
@@ -25,12 +31,20 @@ module.exports = function tictactoeCommandHandler(events){
                 }];
             }
             var game = gameCreatedEvent[cmd.gameId-1];
-            return [{
-                id: cmd.id,
-                event: "GameJoined",
-                userName: cmd.userName,
-                otherUserName: game.userName,
-                timeStamp: cmd.timeStamp
+            if(game.playerTwo===undefined) {
+                return [{
+                    id: cmd.id,
+                    event: "GameJoined",
+                    userName: cmd.userName,
+                    otherUserName: game.userName,
+                    timeStamp: cmd.timeStamp
+                }];
+            }
+            return[{
+                id:cmd.id,
+                event:"GameIsFull",
+                userName:cmd.userName,
+                timeStamp:cmd.timeStamp
             }];
         }
     };

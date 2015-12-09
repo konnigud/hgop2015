@@ -54,14 +54,14 @@ describe('create game command', function() {
     given = [{
       id: "12347",
       comm: "CreateGame",
-      userName: "Gulli",
+      playerOne: "Gulli",
       name: "TheFirstGame",
       timeStamp: "2015.12.02T10:29:20"
       },
       {
         id: "12348",
         comm: "CreateGame",
-        userName: "Halli",
+        playerOne: "Halli",
         name: "TheSecondGame",
         timeStamp: "2015.12.02T11:15:20"
       }];
