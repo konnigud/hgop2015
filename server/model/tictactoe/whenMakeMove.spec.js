@@ -285,14 +285,14 @@ describe('Illegal moves',function(){
       id:"1239",
       comm:"MakeMove",
       gameId:1,
-      userName:"Halli",
+      userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[-1,2]
     };
     then=[{
       id:"1239",
       event:"IllegalMove_OutOfBounds",
-      userName:"Halli",
+      userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
         gameId:1,
@@ -307,8 +307,8 @@ describe('Illegal moves',function(){
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
-  /*
-  it('Player two makes first move, should not work',function(){
+
+  it('Move is out of bounds Y-axis-to large, should not work',function(){
     given=[{
       playerOne: "Gulli",
       playerTwo: "Halli",
@@ -320,14 +320,14 @@ describe('Illegal moves',function(){
       id:"1239",
       comm:"MakeMove",
       gameId:1,
-      userName:"Halli",
+      userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
-      coordinates:[0,2]
+      coordinates:[0,3]
     };
     then=[{
       id:"1239",
-      event:"IllegalMove_NotYourTurn",
-      userName:"Halli",
+      event:"IllegalMove_OutOfBounds",
+      userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
         gameId:1,
@@ -338,9 +338,10 @@ describe('Illegal moves',function(){
         moves:[]
       },
     }];
+
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
-  */
+
 });
 
