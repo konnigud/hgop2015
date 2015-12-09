@@ -83,6 +83,10 @@ module.exports = function tictactoeCommandHandler(events){
                   event = "IllegalMove_NotYourTurn";
             }
 
+            if(cmd.coordinates[0] > 2){
+                event = "IllegalMove_OutOfBounds";
+            }
+
             if(event === "MovedMade") {
                 myGame.moves.push(cmd.coordinates);
             }
