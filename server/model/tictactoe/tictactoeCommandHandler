@@ -98,22 +98,30 @@ module.exports = function tictactoeCommandHandler(events){
 
             if(event === "MovedMade") {
                 myGame.moves.push(cmd.coordinates);
-            }
 
-            if(myGame.moves.length > 4){
-              var x = [0,0,0];
-              var y = [0,0,0];
-
-              for(var i = whosTurn;i<myGame.moves.length;i+=2){
-                x[myGame.moves[i][0]]++;
-                y[myGame.moves[i][1]]++;
-                if(x[myGame.moves[i][0]] === 3 || y[myGame.moves[i][1]] === 3 ||
-                  (x[0] === 1 && x[1] === 1 && x[2] === 1)){
-                  event = "Winner";
-                  break;
+                if(myGame.moves.length === 9){
+                  event = "Draw";
                 }
-              }
+
+                if(myGame.moves.length > 4){
+                  var x = [0,0,0];
+                  var y = [0,0,0];
+
+                  for(var i = whosTurn;i<myGame.moves.length;i+=2){
+                    x[myGame.moves[i][0]]++;
+                    y[myGame.moves[i][1]]++;
+                    if(x[myGame.moves[i][0]] === 3 || y[myGame.moves[i][1]] === 3 ||
+                      (x[0] === 1 && x[1] === 1 && x[2] === 1)){
+                      event = "Winner";
+                      break;
+                    }
+                  }
+                }
             }
+
+
+
+
 
             return [{
                 id:cmd.id,

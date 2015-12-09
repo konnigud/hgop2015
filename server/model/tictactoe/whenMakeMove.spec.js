@@ -413,7 +413,7 @@ describe('Illegal moves',function(){
 
 });
 
-describe('Winning Moves',function(){
+describe('End of game scenarios',function(){
   var given, when, then ;
 
   it('Winning scenario X X X' +
@@ -424,116 +424,7 @@ describe('Winning Moves',function(){
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
       name:"TheFirstGame",
-      moves:[[0,0],[2,0],[0,1],[2,1]]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[0,2]
-    };
-    then=[{
-      id:"1239",
-      event:"Winner",
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[[0,0],[2,0],[0,1],[2,1],[0,2]]
-      },
-    }];
-
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-
-  it('Winning scenario - - -' +
-                      'X X X' +
-                      '- - -',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[[1,0],[2,0],[1,1],[2,1]]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[1,2]
-    };
-    then=[{
-      id:"1239",
-      event:"Winner",
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[[1,0],[2,0],[1,1],[2,1],[1,2]]
-      },
-    }];
-
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-
-  it('Winning scenario - - -' +
-                      '- - -' +
-                      'X X X',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[[2,0],[1,0],[2,1],[1,1]]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[2,2]
-    };
-    then=[{
-      id:"1239",
-      event:"Winner",
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[[2,0],[1,0],[2,1],[1,1],[2,2]]
-      },
-    }];
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-  it('Winning scenario X - -' +
-                      'X - -' +
-                      'X - -',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[[0,0],[1,1],[1,0],[2,1]]
+      moves:[[0,0],[2,1],[1,0],[2,2]]
     }];
     when={
       id:"1239",
@@ -554,7 +445,116 @@ describe('Winning Moves',function(){
         playerOne:"Gulli",
         playerTwo:"Halli",
         createTimeStamp:"2015.12.02T10:24:44",
-        moves:[[0,0],[1,1],[1,0],[2,1],[2,0]]
+        moves:[[0,0],[2,1],[1,0],[2,2],[2,0]]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+  it('Winning scenario - - -' +
+                      'X X X' +
+                      '- - -',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,1],[2,0],[1,1],[2,2]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[2,1]
+    };
+    then=[{
+      id:"1239",
+      event:"Winner",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,1],[2,0],[1,1],[2,2],[2,1]]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+  it('Winning scenario - - -' +
+                      '- - -' +
+                      'X X X',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,2],[1,0],[1,2],[1,1]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[2,2]
+    };
+    then=[{
+      id:"1239",
+      event:"Winner",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,2],[1,0],[1,2],[1,1],[2,2]]
+      },
+    }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+  it('Winning scenario X - -' +
+                      'X - -' +
+                      'X - -',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0],[1,1],[0,1],[2,1]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,2]
+    };
+    then=[{
+      id:"1239",
+      event:"Winner",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0],[1,1],[0,1],[2,1],[0,2]]
       },
     }];
 
@@ -777,6 +777,41 @@ describe('Winning Moves',function(){
         moves:[[0,2],[1,1],[0,1],[1,0],[2,2],[1,2]]
       },
     }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+  it('Draw scenario' ,function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0],[1,0],[0,1],[1,1],[1,2],[0,2],[2,2],[2,1]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[2,0]
+    };
+    then=[{
+      id:"1239",
+      event:"Draw",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0],[1,0],[0,1],[1,1],[1,2],[0,2],[2,2],[2,1],[2,0]]
+      },
+    }];
+
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
