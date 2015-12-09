@@ -32,11 +32,12 @@ module.exports = function tictactoeCommandHandler(events){
             }
             var game = gameCreatedEvent[cmd.gameId-1];
             if(game.playerTwo===undefined) {
+                game.playerTwo = cmd.userName;
                 return [{
                     id: cmd.id,
                     event: "GameJoined",
-                    userName: cmd.userName,
-                    otherUserName: game.userName,
+                    playerOne: game.playerOne,
+                    playerTwo: game.playerTwo,
                     timeStamp: cmd.timeStamp
                 }];
             }
