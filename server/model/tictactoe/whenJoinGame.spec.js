@@ -36,6 +36,45 @@ describe('join game command', function(){
         JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
     });
 
+    it('should join the right game when there are more then one game',function (){
+
+        given= [
+        {
+            id:"1234",
+            event:"GameCreated",
+            playerOne: "Gulli",
+            timeStamp: "2015.12.02T11:24:44",
+            name:"TheFirstGame"
+        },
+        {
+            id:"12345",
+            event:"GameCreated",
+            playerOne: "Halli",
+            timeStamp: "2015.12.02T11:25:44",
+            name:"TheSecondGame"
+        }
+        ];
+        when={
+            id:"12345",
+            comm:"JoinGame",
+            gameId: 1,
+            userName : "Halli",
+            name:"TheFirstGame",
+            timeStamp: "2015.12.02T11:30:50"
+        };
+        then=[{
+            id:"12345",
+            event:"GameJoined",
+            playerOne: "Gulli",
+            playerTwo: "Halli",
+            timeStamp: "2015.12.02T11:30:50",
+        }];
+
+        var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+
+        JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+    });
+
 });
 
 describe('should reject joining of a non_existing game', function(){
