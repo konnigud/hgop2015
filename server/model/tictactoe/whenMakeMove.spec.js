@@ -168,13 +168,13 @@ describe('Make move when not his turn',function(){
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
-  it('Player two makes second move',function(){
+  it('Player two makes 2 consecutive moves, should not work',function(){
     given=[{
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
       name:"TheFirstGame",
-      moves:[[0,0]]
+      moves:[[0,0],[0,1]]
     }];
     when={
       id:"1239",
@@ -182,11 +182,13 @@ describe('Make move when not his turn',function(){
       gameId:1,
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
-      coordinates:[0,1]
+      coordinates:[0,2]
     };
     then=[{
       id:"1239",
-      event:"MovedMade",
+      event:"IllegalMove_NotYourTurn",
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
       game:{
         gameId:1,
         name:"TheFirstGame",
@@ -196,8 +198,8 @@ describe('Make move when not his turn',function(){
         moves:[[0,0],[0,1]]
       },
     }];
-    //var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    //JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
 });
