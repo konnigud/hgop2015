@@ -36,6 +36,7 @@ module.exports = function tictactoeCommandHandler(events){
                 return [{
                     id: cmd.id,
                     event: "GameJoined",
+                    gameId:game.gameId,
                     playerOne: game.playerOne,
                     playerTwo: game.playerTwo,
                     timeStamp: cmd.timeStamp
@@ -44,6 +45,7 @@ module.exports = function tictactoeCommandHandler(events){
             return[{
                 id:cmd.id,
                 event:"GameIsFull",
+                gameId:game.gameId,
                 userName:cmd.userName,
                 timeStamp:cmd.timeStamp
             }];
@@ -71,7 +73,9 @@ module.exports = function tictactoeCommandHandler(events){
             }];
         }
         else {
-            return gameCreatedEvent[cmd.gameId-1];
+            var game = gameCreatedEvent[cmd.gameId-1];
+            game.gameId = cmd.gameId;
+            return game;
         }
     }
 

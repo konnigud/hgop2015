@@ -26,6 +26,7 @@ describe('join game command', function(){
         then=[{
             id:"12345",
             event:"GameJoined",
+            gameId:1,
             playerOne: "Gulli",
             playerTwo: "Halli",
             timeStamp: "2015.12.02T11:30:50",
@@ -65,6 +66,7 @@ describe('join game command', function(){
         then=[{
             id:"12345",
             event:"GameJoined",
+            gameId:1,
             playerOne: "Gulli",
             playerTwo: "Halli",
             timeStamp: "2015.12.02T11:30:50",
@@ -128,10 +130,10 @@ describe('should reject joining of a full game', function(){
         then=[{
             id:"123456",
             event:"GameIsFull",
+            gameId:1,
             userName: "Konni",
             timeStamp: "2015.12.02T11:30:55",
         }];
-
 
         var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
 
