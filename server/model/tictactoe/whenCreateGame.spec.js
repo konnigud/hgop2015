@@ -21,6 +21,10 @@ describe('create game command', function() {
       timeStamp: "2015.12.02T11:29:44",
       name: "TheFirstGame"
     }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
   it('should create game with another user another time', function () {
@@ -76,6 +80,9 @@ describe('create game command', function() {
       timeStamp: "2015.12.02T12:29:20",
       name: "TheThirdGame"
     }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 });
 
