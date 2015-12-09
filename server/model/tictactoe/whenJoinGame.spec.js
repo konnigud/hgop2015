@@ -47,6 +47,7 @@ describe('should reject joining of a non_existing game', function(){
         when={
             id:"123456",
             comm:"JoinGame",
+            gameId: 1,
             userName : "Halli",
             name:"TheFirstGame",
             timeStamp: "2015.12.02T11:30:55"
