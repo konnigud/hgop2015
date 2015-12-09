@@ -1,20 +1,22 @@
 var should = require('should');
 
 module.exports = function tictactoeCommandHandler(events){
-    var gameCreatedEvent = events[0];
+    var gameCreatedEvent = events;
 
     var handlers = {
         "CreateGame":function(cmd){
+            gameCreatedEvent.push(cmd);
             return [{
                 id: cmd.id,
                 event: "GameCreated",
+                gameId: gameCreatedEvent.length,
                 userName: cmd.userName,
                 timeStamp: cmd.timeStamp,
                 name: cmd.name
             }];
         },
         "JoinGame":function(cmd){
-            if(gameCreatedEvent===undefined){
+            if(gameCreatedEvent===undefined || gameCreatedEvent.length <= 0){
                 return [{
                     id:cmd.id,
                     event:"GameDoesNotExist",
@@ -22,11 +24,12 @@ module.exports = function tictactoeCommandHandler(events){
                     timeStamp: cmd.timeStamp
                 }];
             }
+            var game = gameCreatedEvent[cmd.gameId-1];
             return [{
                 id: cmd.id,
                 event: "GameJoined",
                 userName: cmd.userName,
-                otherUserName: gameCreatedEvent.userName,
+                otherUserName: game.userName,
                 timeStamp: cmd.timeStamp
             }];
         }
