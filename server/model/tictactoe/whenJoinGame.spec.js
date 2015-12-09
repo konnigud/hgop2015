@@ -10,10 +10,11 @@ describe('join game command', function(){
     it('should join game',function(){
         given= [{
             id:"1234",
-            event:"GameCreated",
             playerOne: "Gulli",
-            timeStamp: "2015.12.02T11:29:44",
-            name:"TheFirstGame"
+            playerTwo:undefined,
+            createTimeStamp: "2015.12.02T11:29:44",
+            name:"TheFirstGame",
+            moves:[]
         }];
         when={
             id:"12345",
@@ -26,12 +27,17 @@ describe('join game command', function(){
         then=[{
             id:"12345",
             event:"GameJoined",
-            gameId:1,
-            playerOne: "Gulli",
-            playerTwo: "Halli",
-            timeStamp: "2015.12.02T11:30:50",
+            userName:"Halli",
+            timeStamp:"2015.12.02T11:30:50",
+            game: {
+                gameId: 1,
+                name:"TheFirstGame",
+                playerOne: "Gulli",
+                playerTwo: "Halli",
+                createTimeStamp: "2015.12.02T11:29:44",
+                moves:[]
+            }
         }];
-
         var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
 
         JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
@@ -42,17 +48,18 @@ describe('join game command', function(){
         given= [
         {
             id:"1234",
-            event:"GameCreated",
             playerOne: "Gulli",
-            timeStamp: "2015.12.02T11:24:44",
-            name:"TheFirstGame"
+            createTimeStamp: "2015.12.02T11:24:44",
+            name:"TheFirstGame",
+            moves:[]
         },
         {
             id:"12345",
             event:"GameCreated",
             playerOne: "Halli",
             timeStamp: "2015.12.02T11:25:44",
-            name:"TheSecondGame"
+            name:"TheSecondGame",
+            moves:[]
         }
         ];
         when={
@@ -66,17 +73,20 @@ describe('join game command', function(){
         then=[{
             id:"12345",
             event:"GameJoined",
-            gameId:1,
-            playerOne: "Gulli",
-            playerTwo: "Halli",
-            timeStamp: "2015.12.02T11:30:50",
+            userName:"Halli",
+            timeStamp:"2015.12.02T11:30:50",
+            game: {
+                gameId: 1,
+                name:"TheFirstGame",
+                playerOne: "Gulli",
+                playerTwo: "Halli",
+                createTimeStamp: "2015.12.02T11:24:44",
+                moves:[]
+            }
         }];
-
         var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-
         JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
     });
-
 });
 
 describe('should reject joining of a non_existing game', function(){
@@ -113,7 +123,6 @@ describe('should reject joining of a full game', function(){
     it('should not join game',function(){
         given= [{
             id:"1234",
-            event:"GameCreated",
             playerOne: "Gulli",
             playerTwo: "Halli",
             timeStamp: "2015.12.02T11:29:44",

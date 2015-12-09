@@ -1,65 +1,90 @@
 var should = require('should');
 
 module.exports = function tictactoeCommandHandler(events){
-    var gameCreatedEvent = events;
+    var gameCreatedEvent = [];
 
+    for(var i = 0; i< events.length; i++){
+        var game = {
+            gameId: i + 1,
+            name:events[i].name,
+            playerOne:events[i].playerOne,
+            playerTwo:events[i].playerTwo,
+            createTimeStamp:events[i].createTimeStamp,
+            moves:events[i].moves
+        }
+        gameCreatedEvent.push(game);
+    }
 
 
     var handlers = {
         "CreateGame":function(cmd){
             var newGame={
-                id:cmd.id,
-                playerOne:cmd.userName,
-                createTimeStamp:cmd.timeStamp,
+                gameId:gameCreatedEvent.length+1,
                 name:cmd.name,
+                playerOne:cmd.userName,
+                playerTwo:undefined,
+                createTimeStamp:cmd.timeStamp,
+                moves:[]
             };
             gameCreatedEvent.push(cmd);
             return [{
                 id: cmd.id,
                 event: "GameCreated",
-                gameId: gameCreatedEvent.length,
-                userName: cmd.userName,
-                timeStamp: cmd.timeStamp,
-                name: cmd.name
+                userName:cmd.userName,
+                timeStamp:cmd.timeStamp,
+                game: newGame
             }];
         },
         "JoinGame":function(cmd){
-            var game;
+            var joinedGame;
             try {
-                game = getGame(cmd);
+                joinedGame = getGame(cmd);
             }
             catch(err){
                 return err;
             }
-            if(game.playerTwo===undefined) {
-                game.playerTwo = cmd.userName;
+            if(joinedGame.playerTwo===undefined) {
+                joinedGame.playerTwo = cmd.userName;
+                console.log(joinedGame);
                 return [{
                     id: cmd.id,
                     event: "GameJoined",
-                    gameId:game.gameId,
-                    playerOne: game.playerOne,
-                    playerTwo: game.playerTwo,
-                    timeStamp: cmd.timeStamp
+                    userName:cmd.userName,
+                    timeStamp:cmd.timeStamp,
+                    game:joinedGame
                 }];
             }
             return[{
                 id:cmd.id,
                 event:"GameIsFull",
-                gameId:game.gameId,
+                gameId:joinedGame.gameId,
                 userName:cmd.userName,
                 timeStamp:cmd.timeStamp
             }];
         },
         "MakeMove":function(cmd){
-            var game;
+            var myGame;
             try {
-                game = getGame(cmd);
+                myGame = getGame(cmd);
             }
             catch(err){
                 return err;
             }
+            if(myGame.moves===undefined){
+                myGame.moves = [];
 
-            return [{}];
+            }
+            if(myGame.moves.length % 2 == 0){
+
+
+            }
+            myGame.moves.push(cmd.coordinates);
+
+            return [{
+                id:cmd.id,
+                event:"MovedMade",
+                game: myGame
+            }];
         }
     };
 
