@@ -79,6 +79,8 @@ describe('Make move',function(){
       then=[{
           id:"1239",
           event:"MovedMade",
+          userName:"Gulli",
+          timeStamp:"2015.12.02T11:00:10",
           game:{
               gameId:1,
               name:"TheFirstGame",
@@ -87,8 +89,83 @@ describe('Make move',function(){
               moves:[[0,0]]
           },
       }];
+
       var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
       JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+  it('Player two makes second move',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,1]
+    };
+    then=[{
+      id:"1239",
+      event:"MovedMade",
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0],[0,1]]
+      },
+    }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
+});
+
+describe('Make move when not his turn',function(){
+  var given, when, then ;
+
+  it('Player one makes 2 moves in a row, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,1]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_NotYourTurn",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0]]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
   it('Player two makes second move',function(){
@@ -119,8 +196,9 @@ describe('Make move',function(){
         moves:[[0,0],[0,1]]
       },
     }];
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+    //var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    //JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
 });
+

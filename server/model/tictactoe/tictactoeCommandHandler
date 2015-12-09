@@ -64,6 +64,7 @@ module.exports = function tictactoeCommandHandler(events){
         },
         "MakeMove":function(cmd){
             var myGame;
+            var event = "MovedMade";
             try {
                 myGame = getGame(cmd);
             }
@@ -74,15 +75,23 @@ module.exports = function tictactoeCommandHandler(events){
                 myGame.moves = [];
 
             }
-            if(myGame.moves.length % 2 == 0){
 
+            var whosTurn = myGame.moves.length % 2;
 
+            if((whosTurn === 0 && (cmd.userName !== myGame.playerOne))||
+               (whosTurn === 1 && (cmd.userName !== myGame.playerTwo))){
+                  event = "IllegalMove_NotYourTurn";
             }
-            myGame.moves.push(cmd.coordinates);
+
+            if(event === "MovedMade") {
+                myGame.moves.push(cmd.coordinates);
+            }
 
             return [{
                 id:cmd.id,
-                event:"MovedMade",
+                event:event,
+                userName:cmd.userName,
+                timeStamp:cmd.timeStamp,
                 game: myGame
             }];
         }
