@@ -64,7 +64,7 @@ module.exports = function tictactoeCommandHandler(events){
     };
 
     var getGame = function(cmd){
-        if(gameCreatedEvent===undefined || gameCreatedEvent.length <= 0){
+        if(gameCreatedEvent===undefined || cmd.gameId > gameCreatedEvent.length){
             throw [{
                 id:cmd.id,
                 event:"GameDoesNotExist",
