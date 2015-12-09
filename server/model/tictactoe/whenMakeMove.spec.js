@@ -489,6 +489,42 @@ describe('Winning Moves',function(){
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
+
+  it('Winning scenario - - -' +
+                      '- - -' +
+                      'X X X',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[2,0],[1,0],[2,1],[1,1]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[2,2]
+    };
+    then=[{
+      id:"1239",
+      event:"Winner",
+      userName:"Gulli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[2,0],[1,0],[2,1],[1,1],[2,2]]
+      },
+    }];
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
 /*
   it('Move is out of bounds X-axis-to small, should not work',function(){
     given=[{
