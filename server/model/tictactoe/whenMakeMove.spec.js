@@ -376,5 +376,40 @@ describe('Illegal moves',function(){
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
+  it('Move is out of bounds Y-axis-to small, should not work',function(){
+    given=[{
+      playerOne: "Gulli",
+      playerTwo: "Halli",
+      createTimeStamp: "2015.12.02T10:24:44",
+      name:"TheFirstGame",
+      moves:[[0,0]]
+    }];
+    when={
+      id:"1239",
+      comm:"MakeMove",
+      gameId:1,
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      coordinates:[0,0]
+    };
+    then=[{
+      id:"1239",
+      event:"IllegalMove_MoveAlreadyPlayed",
+      userName:"Halli",
+      timeStamp:"2015.12.02T11:00:10",
+      game:{
+        gameId:1,
+        name:"TheFirstGame",
+        playerOne:"Gulli",
+        playerTwo:"Halli",
+        createTimeStamp:"2015.12.02T10:24:44",
+        moves:[[0,0]]
+      },
+    }];
+
+    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
+    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
+  });
+
 });
 

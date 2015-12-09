@@ -90,6 +90,12 @@ module.exports = function tictactoeCommandHandler(events){
                 event = "IllegalMove_OutOfBounds";
             }
 
+            for(var i = 0; i<myGame.moves.length;i++){
+              if(myGame.moves[i][0]===cmd.coordinates[0] && myGame.moves[i][1]===cmd.coordinates[1]){
+                event="IllegalMove_MoveAlreadyPlayed";
+              }
+            }
+
             if(event === "MovedMade") {
                 myGame.moves.push(cmd.coordinates);
             }
