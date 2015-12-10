@@ -78,10 +78,10 @@ module.exports = function(config) {
     singleRun: false,
     reporters: ['progress','junit'],
     junitReporter: {
-      outputDir: 'tests',
-      outputFile: 'test-results.xml',
+      outputDir: '',
+      outputFile: 'undefined',
       suite: '',
-      useBrowserName: false
+      useBrowserName: true
     }
   });
 };
