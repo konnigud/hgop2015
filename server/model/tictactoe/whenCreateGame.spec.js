@@ -59,6 +59,7 @@ describe('create game command', function() {
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
 
+
   it('Adding a new game when games already exists',function(){
     given = [
       {

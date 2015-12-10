@@ -45,7 +45,6 @@ module.exports = function tictactoeCommandHandler(events){
             }
             if(joinedGame.playerTwo===undefined) {
                 joinedGame.playerTwo = cmd.userName;
-                console.log(joinedGame);
                 return [{
                     id: cmd.id,
                     event: "GameJoined",

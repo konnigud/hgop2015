@@ -43,6 +43,7 @@ describe('join game command', function(){
         JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
     });
 
+
     it('should join the right game when there are more then one game',function (){
 
         given= [

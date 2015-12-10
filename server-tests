@@ -1,24 +1,27 @@
 
 [0m[0m
+Express server listening on 9000, in test mode
+[0m  GET /api/gameHistory[0m
+[90mPOST /api/createGame [32m200 [90m5ms - 203b[0m
+[90mGET /api/gameHistory/1 [32m200 [90m2ms - 203b[0m
+[2K[0G  [32m  ✓[0m[90m should respond with JSON array with created events for game [0m[33m(46ms)[0m
+
+[0m  In memory store[0m
+[2K[0G  [32m  ✓[0m[90m Should return empty array for unknown id [0m
+[2K[0G  [32m  ✓[0m[90m Should return events previously stored [0m
+[2K[0G  [32m  ✓[0m[90m should append stored events to events previously stored [0m
+
+[0m  tictactoe game context[0m
+[2K[0G  [32m  ✓[0m[90m should route command to instantiated tictactoe game with event stream from store and return and store generated events. Test using fakes/stubs. [0m
+[2K[0G  [32m  ✓[0m[90m should route command to instantiated tictactoe game with event stream from store and return generated events, using mock style tests. [0m
+
 [0m  create game command[0m
 [2K[0G  [32m  ✓[0m[90m should create game [0m
 [2K[0G  [32m  ✓[0m[90m should create game with another user another time [0m
 [2K[0G  [32m  ✓[0m[90m Adding a new game when games already exists [0m
 
 [0m  join game command[0m
-{ gameId: 1,
-  name: 'TheFirstGame',
-  playerOne: 'Gulli',
-  playerTwo: 'Halli',
-  createTimeStamp: '2015.12.02T11:29:44',
-  moves: [] }
 [2K[0G  [32m  ✓[0m[90m should join game [0m
-{ gameId: 1,
-  name: 'TheFirstGame',
-  playerOne: 'Gulli',
-  playerTwo: 'Halli',
-  createTimeStamp: '2015.12.02T11:24:44',
-  moves: [] }
 [2K[0G  [32m  ✓[0m[90m should join the right game when there are more then one game [0m
 
 [0m  should reject joining of a non_existing game[0m
@@ -63,5 +66,5 @@
 [2K[0G  [32m  ✓[0m[90m Draw scenario [0m
 
 
-[92m [0m[32m 30 passing[0m[90m (28ms)[0m
+[92m [0m[32m 36 passing[0m[90m (98ms)[0m
 
