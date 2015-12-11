@@ -47,7 +47,7 @@ describe('create game command', function() {
       timeStamp:"2015.12.02T11:29:20",
       game:{
         gameId:1,
-        name:"TheFirstGam",
+        name:"TheFirstGame",
         playerOne:"Halli",
         createTimeStamp:"2015.12.02T11:29:20",
         moves:[]
