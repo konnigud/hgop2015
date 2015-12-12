@@ -82,6 +82,6 @@ module.exports = function(config) {
       outputDir: '',
       outputFile: 'test-result.xml',
       suite: '',
-      useBrowserName: true
+      useBrowserName: true,
     }
   });
