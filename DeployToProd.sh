@@ -8,8 +8,7 @@ docker login --username=konnigud --password=comen3tary --email=konnigud@gmail.co
 echo "Pushing changes"
 docker push konnigud/tictactoe
 
-echo "pushing deploy script to thundera"
-echo $PATH
+echo "coping deployment script to server"
 scp deploydocker.sh konni@thundera.org:~/
 
 echo "Deploying $1 to thundera on port $2"
