@@ -9,7 +9,7 @@ echo "Pushing changes"
 docker push konnigud/tictactoe
 
 echo "pushing deploy script to thundera"
-scp ~/deploydocker.sh konni@thundera.org:~/
+scp /deploydocker.sh konni@thundera.org:~/
 
 echo "Deploying $1 to thundera on port $2"
 ssh konni@thundera.org ~/deploydocker.sh $1 $2
