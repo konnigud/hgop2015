@@ -13,7 +13,7 @@ describe('Make move when no game exists',function(){
         when={
             id:"1239",
             comm:"MakeMove",
-            gameId:1,
+            gameId:"9999",
             userName:"Gulli",
             timeStamp:"2015.12.02T11:00:10",
             coordinates:[0,0]
@@ -35,6 +35,7 @@ describe('Make move on a non existant game',function(){
     it('should not make move',function(){
         given=[{
             id:"1234",
+            gameId: "9999",
             playerOne: "Gulli",
             createTimeStamp: "2015.12.02T11:24:44",
             name:"TheFirstGame"
@@ -42,7 +43,7 @@ describe('Make move on a non existant game',function(){
         when={
             id:"1239",
             comm:"MakeMove",
-            gameId:2,
+            gameId:"9998",
             userName:"Gulli",
             timeStamp:"2015.12.02T11:00:10",
             coordinates:[0,0]
@@ -63,6 +64,7 @@ describe('Make move',function(){
 
   it('Player one makes first move',function(){
       given=[{
+          gameId: "9999",
           playerOne: "Gulli",
           createTimeStamp: "2015.12.02T10:24:44",
           name:"TheFirstGame",
@@ -71,7 +73,7 @@ describe('Make move',function(){
       when={
           id:"1239",
           comm:"MakeMove",
-          gameId:1,
+          gameId:"9999",
           userName:"Gulli",
           timeStamp:"2015.12.02T11:00:10",
           coordinates:[0,0]
@@ -82,7 +84,7 @@ describe('Make move',function(){
           userName:"Gulli",
           timeStamp:"2015.12.02T11:00:10",
           game:{
-              gameId:1,
+              gameId:"9999",
               name:"TheFirstGame",
               playerOne:"Gulli",
               createTimeStamp:"2015.12.02T10:24:44",
@@ -96,6 +98,7 @@ describe('Make move',function(){
 
   it('Player two makes second move',function(){
     given=[{
+      gameId: "9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -105,7 +108,7 @@ describe('Make move',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,1]
@@ -116,7 +119,7 @@ describe('Make move',function(){
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -135,6 +138,7 @@ describe('Make move when not his turn',function(){
 
   it('Player one makes 2 moves in a row, should not work',function(){
     given=[{
+      gameId: "9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -144,7 +148,7 @@ describe('Make move when not his turn',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,1]
@@ -155,7 +159,7 @@ describe('Make move when not his turn',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -170,6 +174,7 @@ describe('Make move when not his turn',function(){
 
   it('Player two makes 2 consecutive moves, should not work',function(){
     given=[{
+      gameId: "9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -179,7 +184,7 @@ describe('Make move when not his turn',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,2]
@@ -190,7 +195,7 @@ describe('Make move when not his turn',function(){
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -203,6 +208,7 @@ describe('Make move when not his turn',function(){
   });
   it('Player two makes first move, should not work',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -212,7 +218,7 @@ describe('Make move when not his turn',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,2]
@@ -223,7 +229,7 @@ describe('Make move when not his turn',function(){
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -241,6 +247,7 @@ describe('Illegal moves',function(){
 
   it('Move is out of bounds X-axis-to large, should not work',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -250,7 +257,7 @@ describe('Illegal moves',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[3,0]
@@ -261,7 +268,7 @@ describe('Illegal moves',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -275,6 +282,7 @@ describe('Illegal moves',function(){
 
   it('Move is out of bounds X-axis-to small, should not work',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -284,7 +292,7 @@ describe('Illegal moves',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[-1,2]
@@ -295,7 +303,7 @@ describe('Illegal moves',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -310,6 +318,7 @@ describe('Illegal moves',function(){
 
   it('Move is out of bounds Y-axis-to large, should not work',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -319,7 +328,7 @@ describe('Illegal moves',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,3]
@@ -330,7 +339,7 @@ describe('Illegal moves',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -344,6 +353,7 @@ describe('Illegal moves',function(){
   });
   it('Move is out of bounds Y-axis-to small, should not work',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -353,7 +363,7 @@ describe('Illegal moves',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,-1]
@@ -364,7 +374,7 @@ describe('Illegal moves',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -378,6 +388,7 @@ describe('Illegal moves',function(){
 
   it('Move already played, should not work',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -387,7 +398,7 @@ describe('Illegal moves',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,0]
@@ -398,7 +409,7 @@ describe('Illegal moves',function(){
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -420,6 +431,7 @@ describe('End of game scenarios',function(){
                       '- - -' +
                       '- - -',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -429,7 +441,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,0]
@@ -440,7 +452,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -457,6 +469,7 @@ describe('End of game scenarios',function(){
                       'X X X' +
                       '- - -',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -466,7 +479,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,1]
@@ -477,7 +490,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -494,6 +507,7 @@ describe('End of game scenarios',function(){
                       '- - -' +
                       'X X X',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -503,7 +517,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,2]
@@ -514,7 +528,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -529,6 +543,7 @@ describe('End of game scenarios',function(){
                       'X - -' +
                       'X - -',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -538,7 +553,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[0,2]
@@ -549,7 +564,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -565,6 +580,7 @@ describe('End of game scenarios',function(){
                       '- X -' +
                       '- X -',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -574,7 +590,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[1,1]
@@ -585,7 +601,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -602,6 +618,7 @@ describe('End of game scenarios',function(){
                       '- - X' +
                       '- - X',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -611,7 +628,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,1]
@@ -622,7 +639,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -639,6 +656,7 @@ describe('End of game scenarios',function(){
                       '- X -  ' +
                       '- - X',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -648,7 +666,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,2]
@@ -659,7 +677,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -676,6 +694,7 @@ describe('End of game scenarios',function(){
                       '- X -  ' +
                       'X - -',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -685,7 +704,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,0]
@@ -696,7 +715,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -713,6 +732,7 @@ describe('End of game scenarios',function(){
                       '- O -  ' +
                       '- - O',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -722,7 +742,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,2]
@@ -733,7 +753,7 @@ describe('End of game scenarios',function(){
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -749,6 +769,7 @@ describe('End of game scenarios',function(){
                       '- O -  ' +
                       '- O -',function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -758,7 +779,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[1,2]
@@ -769,7 +790,7 @@ describe('End of game scenarios',function(){
       userName:"Halli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -783,6 +804,7 @@ describe('End of game scenarios',function(){
 
   it('Draw scenario' ,function(){
     given=[{
+      gameId:"9999",
       playerOne: "Gulli",
       playerTwo: "Halli",
       createTimeStamp: "2015.12.02T10:24:44",
@@ -792,7 +814,7 @@ describe('End of game scenarios',function(){
     when={
       id:"1239",
       comm:"MakeMove",
-      gameId:1,
+      gameId:"9999",
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       coordinates:[2,0]
@@ -803,7 +825,7 @@ describe('End of game scenarios',function(){
       userName:"Gulli",
       timeStamp:"2015.12.02T11:00:10",
       game:{
-        gameId:1,
+        gameId:"9999",
         name:"TheFirstGame",
         playerOne:"Gulli",
         playerTwo:"Halli",
@@ -815,145 +837,6 @@ describe('End of game scenarios',function(){
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
-/*
-  it('Move is out of bounds X-axis-to small, should not work',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[-1,2]
-    };
-    then=[{
-      id:"1239",
-      event:"IllegalMove_OutOfBounds",
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[]
-      },
-    }];
-
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-
-  it('Move is out of bounds Y-axis-to large, should not work',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[0,3]
-    };
-    then=[{
-      id:"1239",
-      event:"IllegalMove_OutOfBounds",
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[]
-      },
-    }];
-
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-  it('Move is out of bounds Y-axis-to small, should not work',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[0,-1]
-    };
-    then=[{
-      id:"1239",
-      event:"IllegalMove_OutOfBounds",
-      userName:"Gulli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[]
-      },
-    }];
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-
-  it('Move already played, should not work',function(){
-    given=[{
-      playerOne: "Gulli",
-      playerTwo: "Halli",
-      createTimeStamp: "2015.12.02T10:24:44",
-      name:"TheFirstGame",
-      moves:[[0,0]]
-    }];
-    when={
-      id:"1239",
-      comm:"MakeMove",
-      gameId:1,
-      userName:"Halli",
-      timeStamp:"2015.12.02T11:00:10",
-      coordinates:[0,0]
-    };
-    then=[{
-      id:"1239",
-      event:"IllegalMove_MoveAlreadyPlayed",
-      userName:"Halli",
-      timeStamp:"2015.12.02T11:00:10",
-      game:{
-        gameId:1,
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        playerTwo:"Halli",
-        createTimeStamp:"2015.12.02T10:24:44",
-        moves:[[0,0]]
-      },
-    }];
-
-    var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-    JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
-  });
-*/
 });
 
 

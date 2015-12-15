@@ -10,6 +10,7 @@ describe('join game command', function(){
     it('should join game',function(){
         given= [{
             id:"1234",
+            gameId: "9999",
             playerOne: "Gulli",
             playerTwo:undefined,
             createTimeStamp: "2015.12.02T11:29:44",
@@ -19,7 +20,7 @@ describe('join game command', function(){
         when={
             id:"12345",
             comm:"JoinGame",
-            gameId: 1,
+            gameId: "9999",
             userName : "Halli",
             name:"TheFirstGame",
             timeStamp: "2015.12.02T11:30:50"
@@ -30,7 +31,7 @@ describe('join game command', function(){
             userName:"Halli",
             timeStamp:"2015.12.02T11:30:50",
             game: {
-                gameId: 1,
+                gameId: "9999",
                 name:"TheFirstGame",
                 playerOne: "Gulli",
                 playerTwo: "Halli",
@@ -39,7 +40,6 @@ describe('join game command', function(){
             }
         }];
         var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
-
         JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
     });
 
@@ -49,6 +49,7 @@ describe('join game command', function(){
         given= [
         {
             id:"1234",
+            gameId: "9999",
             playerOne: "Gulli",
             createTimeStamp: "2015.12.02T11:24:44",
             name:"TheFirstGame",
@@ -56,7 +57,7 @@ describe('join game command', function(){
         },
         {
             id:"12345",
-            event:"GameCreated",
+            gameId: "9998",
             playerOne: "Halli",
             timeStamp: "2015.12.02T11:25:44",
             name:"TheSecondGame",
@@ -66,7 +67,7 @@ describe('join game command', function(){
         when={
             id:"12345",
             comm:"JoinGame",
-            gameId: 1,
+            gameId: "9999",
             userName : "Halli",
             name:"TheFirstGame",
             timeStamp: "2015.12.02T11:30:50"
@@ -77,7 +78,7 @@ describe('join game command', function(){
             userName:"Halli",
             timeStamp:"2015.12.02T11:30:50",
             game: {
-                gameId: 1,
+                gameId: "9999",
                 name:"TheFirstGame",
                 playerOne: "Gulli",
                 playerTwo: "Halli",
@@ -98,7 +99,7 @@ describe('should reject joining of a non_existing game', function(){
         when={
             id:"123456",
             comm:"JoinGame",
-            gameId: 1,
+            gameId: "9999",
             userName : "Halli",
             name:"TheFirstGame",
             timeStamp: "2015.12.02T11:30:55"
@@ -124,6 +125,7 @@ describe('should reject joining of a full game', function(){
     it('should not join game',function(){
         given= [{
             id:"1234",
+            gameId: "9999",
             playerOne: "Gulli",
             playerTwo: "Halli",
             timeStamp: "2015.12.02T11:29:44",
@@ -132,7 +134,7 @@ describe('should reject joining of a full game', function(){
         when={
             id:"123456",
             comm:"JoinGame",
-            gameId: 1,
+            gameId: "9999",
             userName : "Konni",
             name:"TheFirstGame",
             timeStamp: "2015.12.02T11:30:55"
@@ -140,7 +142,7 @@ describe('should reject joining of a full game', function(){
         then=[{
             id:"123456",
             event:"GameIsFull",
-            gameId:1,
+            gameId:"9999",
             userName: "Konni",
             timeStamp: "2015.12.02T11:30:55",
         }];

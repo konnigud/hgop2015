@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<testsuite name="Firefox 42.0.0 (Ubuntu 0.0.0)" package="" timestamp="2015-12-12T22:45:20" id="0" hostname="UbuntuBee" tests="1" errors="0" failures="0" time="0.061">
+<testsuite name="Firefox 42.0.0 (Ubuntu 0.0.0)" package="" timestamp="2015-12-15T10:31:23" id="0" hostname="UbuntuBee" tests="1" errors="0" failures="0" time="0.036">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0"/>
   </properties>
-  <testcase name="should attach a list of things to the scope" time="0.061" classname="Firefox_42_0_0_(Ubuntu_0_0_0).Controller: MainCtrl"/>
+  <testcase name="should attach a list of things to the scope" time="0.036" classname="Firefox_42_0_0_(Ubuntu_0_0_0).Controller: MainCtrl"/>
   <system-out>
     <![CDATA[
 ]]>

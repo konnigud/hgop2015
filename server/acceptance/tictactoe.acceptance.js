@@ -19,7 +19,7 @@ describe('TEST ENV GET /api/gameHistory', function () {
 
     var command = {
       id: "1234",
-      //gameId: "100000",
+      gameId: "9999",
       comm: "CreateGame",
       userName: "Gulli",
       name: "TheFirstGame",
@@ -34,7 +34,7 @@ describe('TEST ENV GET /api/gameHistory', function () {
       .end(function (err, res) {
         if (err) return done(err);
         request(acceptanceUrl)
-          .get('/api/gameHistory/1')
+          .get('/api/gameHistory/9999')
           .expect(200)
           .expect('Content-Type', /json/)
           .end(function (err, res) {
@@ -43,11 +43,16 @@ describe('TEST ENV GET /api/gameHistory', function () {
             should(res.body).eql(
               [{
                 "id": "1234",
-                "gameId": "1",
                 "event": "GameCreated",
                 "userName": "Gulli",
-                "name": "TheFirstGame",
-                "timeStamp": "2014-12-02T11:29:29"
+                "timeStamp": "2014-12-02T11:29:29",
+                "game":{
+                  "createTimeStamp":"2014-12-02T11:29:29",
+                  "gameId":"9999",
+                  "moves":[],
+                  "name":"TheFirstGame",
+                  "playerOne":"Gulli"
+                }
               }]);
             done();
           });
