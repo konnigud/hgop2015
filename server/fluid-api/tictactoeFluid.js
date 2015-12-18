@@ -4,21 +4,29 @@ var acceptanceUrl = process.env.ACCEPTANCE_URL;
 
 function given(userApi) {
   var _expectedEvents=[{
-    "id": "1234",
-    "gameId": userApi._command.gameId,
-    "event": "EventName",
+    "id": userApi._command.id,
     "userName": userApi._command.userName,
-    "name": userApi._command.gameId,
-    "timeStamp": "2014-12-02T11:29:29"
+    "timeStamp": userApi._command.timeStamp,
+    "game":{
+      "gameId":userApi._command.gameId,
+      "createTimeStamp":userApi._command.timeStamp,
+      "moves":[],
+      "playerOne":userApi._command.userName,
+      "name":userApi._command.name
+    }
   }];
   var _currentEvent = 0;
   var expectApi = {
     withName: function (gameName) {
-      _expectedEvents[_currentEvent].name = gameName;
+      _expectedEvents[_currentEvent].game.name = gameName;
       return expectApi;
     },
     expect: function (eventName) {
-      _expectedEvents[_currentEvent].event = eventName;
+      //_expectedEvents[_currentEvent].event = eventName;
+      return expectApi;
+    },
+    joinGame: function(command){
+      //_expectedEvents[_currentEvent].game.playerTwo = command.userName;
       return expectApi;
     },
     isOk: function (done) {
@@ -30,16 +38,30 @@ function given(userApi) {
         .end(function (err, res) {
           if (err) return done(err);
           request(acceptanceUrl)
-            .get('/api/gameHistory/' + userApi._command.gameId)
-            .expect(200)
-            .expect('Content-Type', /json/)
-            .end(function (err, res) {
+            .post('/api/joinGame')
+            .type('json')
+            .send({
+              "id": "2345",
+              "comm": "JoinGame",
+              "gameId": "9998",
+              "userName": "Gulli",
+              "timeStamp" : "2014-12-02T11:29:29"
+              //"timeStamp": now
+            })
+          .end(function (err, res) {
+            if (err) return done(err);
+            request(acceptanceUrl)
+              .get('/api/gameHistory/' + userApi._command.gameId)
+              .expect(200)
+              .expect('Content-Type', /json/)
+              .end(function (err, res) {
               if (err) return done(err);
               res.body.should.be.instanceof(Array);
               should(res.body).eql(
                 _expectedEvents);
               done();
-            });
+              });
+          });
         });
       return expectApi;
     },
@@ -49,23 +71,38 @@ function given(userApi) {
 }
 
 function user(userName) {
+  var now = new Date().toISOString();
   var userApi = {
     _command: undefined,
-    createsGame: function (gameId) {
+    createsGame: function () {
       userApi._command = {
         id: "1234",
-        gameId: gameId,
         comm: "CreateGame",
         userName: userName,
-        name: gameId,
-        timeStamp: "2014-12-02T11:29:29"
+        timeStamp: now,
       };
       return userApi;
     },
     withId : function(gameId){
       userApi._command.gameId = gameId;
       return userApi;
+    },
+    name : function(gameName){
+      userApi._command.name = gameName;
+      return userApi;
+    },
+    joinsGame : function (gameId){
+      userApi._command = {
+        "id": "2345",
+        "comm": "JoinGame",
+        "gameId": gameId,
+        "userName": userName,
+        "timeStamp" : "2014-12-02T11:29:29"
+        //"timeStamp": now
+      };
+      return userApi;
     }
+
   };
   return userApi
 }

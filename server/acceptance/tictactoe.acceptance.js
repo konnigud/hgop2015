@@ -4,8 +4,8 @@ var should = require('should');
 var request = require('supertest');
 var acceptanceUrl = process.env.ACCEPTANCE_URL;
 
-//var given = require('../fluid-api/').given;
-//var user = require('../fluid-api/tictactoeFluid').user;
+var given = require('../fluid-api/tictactoeFluid').given;
+var user = require('../fluid-api/tictactoeFluid').user;
 
 describe('TEST ENV GET /api/gameHistory', function () {
 
@@ -44,8 +44,8 @@ describe('TEST ENV GET /api/gameHistory', function () {
               [{
                 "id": "1234",
                 "event": "GameCreated",
-                "userName": "Gulli",
                 "timeStamp": "2014-12-02T11:29:29",
+                "userName": "Gulli",
                 "game":{
                   "createTimeStamp":"2014-12-02T11:29:29",
                   "gameId":"9999",
@@ -58,10 +58,24 @@ describe('TEST ENV GET /api/gameHistory', function () {
           });
       });
   });
-  /*
+
    it('Should execute fluid API test', function (done) {
-     given(user("YourUser").createsGame("TheFirstGame"))
-     .expect("GameCreated").withName("TheFirstGame").isOk(done);
+     var gameId = "9998";
+     var pOne = "Konni";
+     var pTwo = "Gulli";
+     given(user(pOne).createsGame().withId(gameId).name("TheFirstGame"))
+       .joinGame(user(pTwo).joinsGame(gameId))
+       .expect("GameCreated")
+       .isOk(done);
    });
-  */
+  /*
+   given(user("YourUser").createsGame("GameIdOne").named("TheFirstGame"))
+   .and(user("OtherUser").joinsGame("GameIdOne"))
+   .and(user("YourUser").placesMove(0,0))
+   .and(user("OtherUser").placesMove(1,1))
+   .andSomeMoreMovesThatLeadToVictory
+   .expect("GameDraw").byUser("OtherUser").isOk(done);
+
+   */
+
 });
