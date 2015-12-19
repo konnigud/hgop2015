@@ -10,51 +10,53 @@ describe('create game command', function() {
       id: "1234",
       gameId: "9999",
       comm: "CreateGame",
-      userName: "Gulli",
+      user:{
+        name: "Gulli",
+        side: "X"
+      },
       name: "TheFirstGame",
       timeStamp: "2015.12.02T11:29:44"
     };
     then = [{
       id: "1234",
+      gameId: "9999",
       event: "GameCreated",
-      userName:"Gulli",
+      user:{
+        name: "Gulli",
+        side: "X"
+      },
       timeStamp:"2015.12.02T11:29:44",
-      game:{
-        gameId: "9999",
-        name:"TheFirstGame",
-        playerOne:"Gulli",
-        createTimeStamp:"2015.12.02T11:29:44",
-        moves:[]
-      }
+      name:"TheFirstGame",
     }];
 
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
 
     JSON.stringify(actualEvents).should.be.exactly(JSON.stringify(then));
   });
+
   it('should create game with another user another time', function () {
     given = [];
     when = {
       id: "12347",
       comm: "CreateGame",
       gameId: "9999",
-      userName: "Halli",
+      user:{
+        name: "Konni",
+        side: "X"
+      },
       name: "TheFirstGame",
       timeStamp: "2015.12.02T11:29:20",
-      moves:[]
     };
     then = [{
       id: "12347",
+      gameId: "9999",
       event: "GameCreated",
-      userName:"Halli",
+      user:{
+        name: "Konni",
+        side: "X"
+      },
       timeStamp:"2015.12.02T11:29:20",
-      game:{
-        gameId: "9999",
-        name:"TheFirstGame",
-        playerOne:"Halli",
-        createTimeStamp:"2015.12.02T11:29:20",
-        moves:[]
-      }
+      name:"TheFirstGame",
     }];
 
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
@@ -66,37 +68,38 @@ describe('create game command', function() {
   it('Adding a new game when games already exists',function(){
     given = [
       {
-        playerOne: "Gulli",
-        name: "TheFirstGame",
+        id: "1234",
         gameId: "9999",
-        createTimeStamp: "2015.12.02T10:29:20"
+        event: "GameCreated",
+        user:{
+          name: "Gulli",
+          side: "X"
+        },
+        timeStamp: "2015.12.02T11:29:44",
+        name: "TheFirstGame"
       },
-      {
-        playerOne: "Halli",
-        name: "TheSecondGame",
-        gameId: "9998",
-        createTimeStamp: "2015.12.02T11:15:20"
-      }];
+    ];
     when = {
       id: "12349",
       gameId: "9997",
       comm: "CreateGame",
-      userName: "Konni",
+      user:{
+        name: "Konni",
+        side: "X"
+      },
       name: "TheThirdGame",
       timeStamp: "2015.12.02T12:29:20"
     };
     then = [{
       id: "12349",
+      gameId: "9997",
       event: "GameCreated",
-      userName:"Konni",
+      user:{
+        name: "Konni",
+        side: "X"
+      },
       timeStamp:"2015.12.02T12:29:20",
-      game:{
-        gameId: "9997",
-        name:"TheThirdGame",
-        playerOne:"Konni",
-        createTimeStamp:"2015.12.02T12:29:20",
-        moves:[]
-      }
+      name:"TheThirdGame"
     }];
     var actualEvents = tictactoeCommandHandler(given).executeCommand(when);
 

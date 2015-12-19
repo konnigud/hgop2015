@@ -31,25 +31,35 @@ function given(userApi) {
     },
     isOk: function (done) {
       var req = request(acceptanceUrl);
+
+
+
+
       req
         .post('/api/createGame')
         .type('json')
         .send(userApi._command)
         .end(function (err, res) {
+          if (err) {
+            console.log("Error");
+            return done(err);
+          }
+        });
+      request(acceptanceUrl)
+        .post('/api/joinGame')
+        .type('json')
+        .send({
+          "id": "2345",
+          "comm": "JoinGame",
+          "gameId": "9998",
+          "userName": "Gulli",
+          "timeStamp" : "2014-12-02T11:29:29"
+          //"timeStamp": now
+        })
+        .end(function (err, res) {
           if (err) return done(err);
-          request(acceptanceUrl)
-            .post('/api/joinGame')
-            .type('json')
-            .send({
-              "id": "2345",
-              "comm": "JoinGame",
-              "gameId": "9998",
-              "userName": "Gulli",
-              "timeStamp" : "2014-12-02T11:29:29"
-              //"timeStamp": now
-            })
-          .end(function (err, res) {
-            if (err) return done(err);
+        });
+
             request(acceptanceUrl)
               .get('/api/gameHistory/' + userApi._command.gameId)
               .expect(200)
@@ -61,8 +71,7 @@ function given(userApi) {
                 _expectedEvents);
               done();
               });
-          });
-        });
+
       return expectApi;
     },
   };

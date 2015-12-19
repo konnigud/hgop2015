@@ -1,159 +1,168 @@
+var _ = require('lodash');
 
 module.exports = function tictactoeCommandHandler(events){
-    var gameCreatedEvent = [];
 
-    for(var i = 0; i< events.length; i++){
-        var game = {
-            gameId: events[i].gameId,
-            name:events[i].name,
-            playerOne:events[i].playerOne,
-            playerTwo:events[i].playerTwo,
-            createTimeStamp:events[i].createTimeStamp,
-            moves:events[i].moves
-        }
-        gameCreatedEvent.push(game);
+  var gameState = {
+    gameCreatedEvent : events[0],
+    board: [['','',''],['','',''],['','','']]
+  };
+
+  var eventHandlers={
+    'MoveMade': function(event){
+      gameState.board[event.move[0]][event.move[1]] = event.user.side;
     }
+  };
 
+  _.each(events, function(event){
+    var eventHandler = eventHandlers[event.event];
+    if(eventHandler) eventHandler(event);
+  });
 
     var handlers = {
         "CreateGame":function(cmd){
-            var newGame={
-                gameId:cmd.gameId,
-                name:cmd.name,
-                playerOne:cmd.userName,
-                playerTwo:undefined,
-                createTimeStamp:cmd.timeStamp,
-                moves:[]
-            };
-            gameCreatedEvent.push(cmd);
-            return [{
-                id: cmd.id,
-                event: "GameCreated",
-                userName:cmd.userName,
-                timeStamp:cmd.timeStamp,
-                game: newGame
-            }];
+          return [{
+            id: cmd.id,
+            gameId: cmd.gameId,
+            event: "GameCreated",
+            user:{
+              name: cmd.user.name,
+              side: cmd.user.side,
+            },
+            timeStamp: cmd.timeStamp,
+            name: cmd.name
+          }];
         },
-        "JoinGame":function(cmd){
-            var joinedGame;
-            try {
-                joinedGame = getGame(cmd);
+        "JoinGame":function(cmd) {
+          {
+            if (gameState.gameCreatedEvent === undefined) {
+              return [{
+                id: cmd.id,
+                event: "GameDoesNotExist",
+                user: cmd.user,
+                timeStamp: cmd.timeStamp
+              }];
             }
-            catch(err){
-                return err;
-            }
-            if(joinedGame.playerTwo===undefined) {
-                joinedGame.playerTwo = cmd.userName;
-                return [{
-                    id: cmd.id,
-                    event: "GameJoined",
-                    userName:cmd.userName,
-                    timeStamp:cmd.timeStamp,
-                    game:joinedGame
-                }];
-            }
-            return[{
-                id:cmd.id,
-                event:"GameIsFull",
-                gameId:joinedGame.gameId,
-                userName:cmd.userName,
-                timeStamp:cmd.timeStamp
+            return [{
+              id: cmd.id,
+              gameId: cmd.gameId,
+              event: "GameJoined",
+              user: cmd.user,
+              timeStamp: cmd.timeStamp,
+              name: cmd.name
             }];
+          }
         },
         "MakeMove":function(cmd){
-            var myGame;
-            var event = "MovedMade";
-            try {
-                myGame = getGame(cmd);
-            }
-            catch(err){
-                return err;
-            }
-            if(myGame.moves===undefined){
-                myGame.moves = [];
+          if(gameState.gameCreatedEvent === undefined){
+            return [{
+              id: cmd.id,
+              event: "GameDoesNotExist",
+              user: cmd.user,
+              timeStamp: cmd.timeStamp
+            }];
+          }
+          console.log(cmd);
+          if(cmd.move[0] > 2 ||
+             cmd.move[0] < 0 ||
+             cmd.move[1] > 2 ||
+             cmd.move[2] < 0 ||
+             gameState.board[cmd.move[0]][cmd.move[1]]!=='') {
+            return [{
+              id: cmd.id,
+              gameId: cmd.gameId,
+              event: "IllegalMove",
+              user: cmd.user,
+              name: gameState.gameCreatedEvent.name,
+              timeStamp: cmd.timeStamp,
+              move: cmd.move
+            }]
+          }
 
+          var result = [{
+            id: cmd.id,
+            gameId: cmd.gameId,
+            event: "MoveMade",
+            user: cmd.user,
+            timeStamp: cmd.timeStamp,
+            name:gameState.gameCreatedEvent.name,
+            move: cmd.move
+          }];
+
+          var checkBoard = gameState.board;
+          checkBoard[cmd.move[0]][cmd.move[1]] = cmd.user.side;
+          var win = false;
+
+          for (var i = 0; i < 2; i++) {
+            if (checkBoard[0][i] === cmd.user.side &&
+              checkBoard[1][i] === cmd.user.side &&
+              checkBoard[2][i] === cmd.user.side) {
+              win = true;
+              break;
             }
-
-            var whosTurn = myGame.moves.length % 2;
-
-            if((whosTurn === 0 && (cmd.userName !== myGame.playerOne))||
-               (whosTurn === 1 && (cmd.userName !== myGame.playerTwo))){
-                  event = "IllegalMove_NotYourTurn";
+            if (checkBoard[i][0] === cmd.user.side &&
+              checkBoard[i][1] === cmd.user.side &&
+              checkBoard[i][2] === cmd.user.side) {
+              win = true;
+              break;
             }
+          }
 
-            if(cmd.coordinates[0] > 2 ||
-               cmd.coordinates[0] < 0 ||
-               cmd.coordinates[1] > 2 ||
-               cmd.coordinates[1] < 0){
-                event = "IllegalMove_OutOfBounds";
+          if (win === false) {
+            if ((checkBoard[0][0] === cmd.user.side &&
+              checkBoard[1][1] === cmd.user.side &&
+              checkBoard[2][2] === cmd.user.side) ||
+              (checkBoard[2][0] === cmd.user.side &&
+              checkBoard[1][1] === cmd.user.side &&
+              checkBoard[0][2] === cmd.user.side)) {
+              win = true;
             }
+          }
 
-            for(var i = 0; i<myGame.moves.length;i++){
-              if(myGame.moves[i][0]===cmd.coordinates[0] && myGame.moves[i][1]===cmd.coordinates[1]){
-                event="IllegalMove_MoveAlreadyPlayed";
+          if(win === true){
+            result.push({
+              id: cmd.id,
+              gameId: cmd.gameId,
+              event: "Winner",
+              user: cmd.user,
+              timeStamp: cmd.timeStamp,
+              name:gameState.gameCreatedEvent.name,
+            })
+          }
+          else{
+            var draw = true;
+            for(var i = 0;i<3;i++){
+              for(var j = 0; j<3;j++){
+                if(checkBoard[i][j]=== ''){
+                  draw = false;
+                  break;
+                }
               }
             }
 
-            if(event === "MovedMade") {
-                myGame.moves.push(cmd.coordinates);
-
-                if(myGame.moves.length === 9){
-                  event = "Draw";
-                }
-
-                if(myGame.moves.length > 4){
-                  var x = [0,0,0];
-                  var y = [0,0,0];
-
-                  for(var i = whosTurn;i<myGame.moves.length;i+=2){
-                    x[myGame.moves[i][0]]++;
-                    y[myGame.moves[i][1]]++;
-                    if(x[myGame.moves[i][0]] === 3 || y[myGame.moves[i][1]] === 3 ||
-                      (x[0] === 1 && x[1] === 1 && x[2] === 1)){
-                      event = "Winner";
-                      break;
-                    }
-                  }
-                }
+            if(draw){
+              result.push({
+                id: cmd.id,
+                gameId: cmd.gameId,
+                event: "Draw",
+                user: cmd.user,
+                timeStamp: cmd.timeStamp,
+                name:gameState.gameCreatedEvent.name,
+              })
             }
-            return [{
-                id:cmd.id,
-                event:event,
-                userName:cmd.userName,
-                timeStamp:cmd.timeStamp,
-                game: myGame
-            }];
+          }
+
+
+          return result;
         }
     };
 
-    var getGame = function(cmd){
-
-        var game = null;
-        if(!(gameCreatedEvent === undefined || gameCreatedEvent.length < 1)) {
-          for (var i = 0; i < gameCreatedEvent.length; i++) {
-            if (gameCreatedEvent[i].gameId === cmd.gameId) {
-              game = gameCreatedEvent[i];
-              return game;
-            }
-          }
-        }
-
-        if(game === null){
-          throw [{
-            id:cmd.id,
-            event:"GameDoesNotExist",
-            userName: cmd.userName,
-            timeStamp: cmd.timeStamp
-          }];
-        }
-        else {
-            return game;
-        }
-    }
-
     return {
         executeCommand:function(cmd){
-            return handlers[cmd.comm](cmd);
+          var handler = handlers[cmd.comm];
+          if(!handler){
+            throw new Error("No handler resolved for command " + JSON.stringify(cmd));
+          }
+          return handler(cmd);
         }
     };
 }

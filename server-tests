@@ -1,9 +1,9 @@
 
 [0m[0m
 [0m  GET /api/gameHistory[0m
-[90mPOST /api/createGame [32m200 [90m8ms - 208b[0m
-[90mGET /api/gameHistory/9999 [32m200 [90m1ms - 208b[0m
-[2K[0G  [32m  ✓[0m[90m should respond with JSON array with created events for game [0m[33m(40ms)[0m
+[90mPOST /api/createGame [32m200 [90m5ms - 144b[0m
+[90mGET /api/gameHistory/9999 [32m200 [90m2ms - 144b[0m
+[2K[0G  [32m  ✓[0m[90m should respond with JSON array with created events for game [0m[33m(54ms)[0m
 
 [0m  In memory store[0m
 [2K[0G  [32m  ✓[0m[90m Should return empty array for unknown id [0m
@@ -21,49 +21,90 @@
 
 [0m  join game command[0m
 [2K[0G  [32m  ✓[0m[90m should join game [0m
-[2K[0G  [32m  ✓[0m[90m should join the right game when there are more then one game [0m
 
 [0m  should reject joining of a non_existing game[0m
 [2K[0G  [32m  ✓[0m[90m should not join the game [0m
 
-[0m  should reject joining of a full game[0m
-[2K[0G  [32m  ✓[0m[90m should not join game [0m
-
 [0m  Make move when no game exists[0m
 [2K[0G  [32m  ✓[0m[90m should not make move [0m
 
-[0m  Make move on a non existant game[0m
-[2K[0G  [32m  ✓[0m[90m should not make move [0m
-
 [0m  Make move[0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 0, 0 ] }
 [2K[0G  [32m  ✓[0m[90m Player one makes first move [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Konni', side: 'O' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 0, 1 ] }
 [2K[0G  [32m  ✓[0m[90m Player two makes second move [0m
 
-[0m  Make move when not his turn[0m
-[2K[0G  [32m  ✓[0m[90m Player one makes 2 moves in a row, should not work [0m
-[2K[0G  [32m  ✓[0m[90m Player two makes 2 consecutive moves, should not work [0m
-[2K[0G  [32m  ✓[0m[90m Player two makes first move, should not work [0m
-
 [0m  Illegal moves[0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 3, 0 ] }
 [2K[0G  [32m  ✓[0m[90m Move is out of bounds X-axis-to large, should not work [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ -1, 0 ] }
 [2K[0G  [32m  ✓[0m[90m Move is out of bounds X-axis-to small, should not work [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 2, 4 ] }
 [2K[0G  [32m  ✓[0m[90m Move is out of bounds Y-axis-to large, should not work [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 0, -5 ] }
 [2K[0G  [32m  ✓[0m[90m Move is out of bounds Y-axis-to small, should not work [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Konni', side: 'O' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 0, 0 ] }
 [2K[0G  [32m  ✓[0m[90m Move already played, should not work [0m
 
 [0m  End of game scenarios[0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario X X X- - -- - - [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario - - -X X X- - - [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario - - -- - -X X X [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario X - -X - -X - - [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario - X -- X -- X - [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario - - X- - X- - X [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario X - -  - X -  - - X [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario - - X  - X -  X - - [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario O - -  - O -  - - O [0m
-[2K[0G  [32m  ✓[0m[90m Winning scenario - O -  - O -  - O - [0m
-[2K[0G  [32m  ✓[0m[90m Draw scenario [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 2, 0 ] }
+[2K[0G  [32m  ✓[0m[90m Player one wins [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Konni', side: 'O' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 2, 1 ] }
+[2K[0G  [32m  ✓[0m[90m Player two wins [0m
+{ id: '1239',
+  comm: 'MakeMove',
+  gameId: '9999',
+  user: { name: 'Gulli', side: 'X' },
+  timeStamp: '2015.12.02T11:00:10',
+  move: [ 1, 2 ] }
+[2K[0G  [32m  ✓[0m[90m Draw [0m
 
 
-[92m [0m[32m 36 passing[0m[90m (78ms)[0m
+[92m [0m[32m 22 passing[0m[90m (97ms)[0m
+
 

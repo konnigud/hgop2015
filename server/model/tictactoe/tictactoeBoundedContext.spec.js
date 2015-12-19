@@ -9,7 +9,6 @@ function resolvedPromise(value) {
   return defer.promise;
 }
 
-
 describe('tictactoe game context', function() {
 
   it('should route command to instantiated tictactoe game with event stream from store and return and store generated events. ' +
