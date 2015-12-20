@@ -21,9 +21,12 @@ describe('TEST ENV GET /api/gameHistory', function () {
       id: "1234",
       gameId: "9999",
       comm: "CreateGame",
-      userName: "Gulli",
+      user:{
+        name: "Gulli",
+        side: "X"
+      },
       name: "TheFirstGame",
-      timeStamp: "2014-12-02T11:29:29"
+      timeStamp: "2015.12.02T11:29:44"
     };
 
     var req = request(acceptanceUrl);
@@ -42,17 +45,15 @@ describe('TEST ENV GET /api/gameHistory', function () {
             res.body.should.be.instanceof(Array);
             should(res.body).eql(
               [{
-                "id": "1234",
-                "event": "GameCreated",
-                "timeStamp": "2014-12-02T11:29:29",
-                "userName": "Gulli",
-                "game":{
-                  "createTimeStamp":"2014-12-02T11:29:29",
-                  "gameId":"9999",
-                  "moves":[],
-                  "name":"TheFirstGame",
-                  "playerOne":"Gulli"
-                }
+                id: "1234",
+                gameId: "9999",
+                event: "GameCreated",
+                user:{
+                  name: "Gulli",
+                  side: "X"
+                },
+                timeStamp:"2015.12.02T11:29:44",
+                name:"TheFirstGame",
               }]);
             done();
           });
@@ -61,11 +62,27 @@ describe('TEST ENV GET /api/gameHistory', function () {
 
    it('Should execute fluid API test', function (done) {
      var gameId = "9998";
-     var pOne = "Konni";
-     var pTwo = "Gulli";
-     given(user(pOne).createsGame().withId(gameId).name("TheFirstGame"))
-       .joinGame(user(pTwo).joinsGame(gameId))
-       .expect("GameCreated")
+     var gameName = "TheFirstGame";
+     var pOne = {
+       name:"Konni",
+       side:"X"
+     };
+     var pTwo = {
+       name:"Gulli",
+       side:"O"
+     };
+     given(user(pOne).createsGame(gameId,gameName)).expect("GameCreated").withName(gameName)
+       .and(user(pTwo).joinsGame(gameId)).expect("GameJoined")
+       .and(user(pOne).makesMove(gameId,0,0)).expect("MoveMade").withName(gameName).withMove(0,0)
+       .and(user(pTwo).makesMove(gameId,1,0)).expect("MoveMade").withName(gameName).withMove(1,0)
+       .and(user(pOne).makesMove(gameId,0,1)).expect("MoveMade").withName(gameName).withMove(0,1)
+       .and(user(pTwo).makesMove(gameId,1,1)).expect("MoveMade").withName(gameName).withMove(1,1)
+       .and(user(pOne).makesMove(gameId,1,2)).expect("MoveMade").withName(gameName).withMove(1,2)
+       .and(user(pTwo).makesMove(gameId,0,2)).expect("MoveMade").withName(gameName).withMove(0,2)
+       .and(user(pOne).makesMove(gameId,2,0)).expect("MoveMade").withName(gameName).withMove(2,0)
+       .and(user(pTwo).makesMove(gameId,2,2)).expect("MoveMade").withName(gameName).withMove(2,2)
+       .and(user(pOne).makesMove(gameId,2,1)).expect("MoveMade").withName(gameName).withMove(2,1)
+       .expect("Draw").withName(gameName)
        .isOk(done);
    });
   /*

@@ -61,7 +61,6 @@ module.exports = function tictactoeCommandHandler(events){
               timeStamp: cmd.timeStamp
             }];
           }
-          console.log(cmd);
           if(cmd.move[0] > 2 ||
              cmd.move[0] < 0 ||
              cmd.move[1] > 2 ||
