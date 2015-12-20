@@ -72,7 +72,7 @@ function user(user) {
         .type('json')
         .send(userApi._command)
         .end(function (err, res) {
-          if (err) return done(err);
+          if (err) return err;
           for(var i = 0; i<res.body.length;i++){
             userApi.response.push(res.body);
           }
@@ -92,7 +92,7 @@ function user(user) {
         .type('json')
         .send(userApi._command)
         .end(function (err, res) {
-          if (err) return done(err);
+          if (err) return (err);
         });
       return userApi;
     },
@@ -110,7 +110,7 @@ function user(user) {
         .type('json')
         .send(userApi._command)
         .end(function (err, res) {
-          if (err) return done(err);
+          if (err) return (err);
         });
       return userApi;
     },
